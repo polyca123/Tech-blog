@@ -19,4 +19,14 @@ router.post('/users/login', (req, res) => {
 
 router.get('/users/posts', passport.authenticate('jwt'), (req, res) => res.json(req.user))
 
+router.get('/usernames', (req, res) => {
+  User.findAll({})
+    .then(users => {
+      let username = []
+      users.forEach(user => { usernames.push(user.username) })
+      res.json(usernames)
+    })
+    .catch(err => console.log(err))
+})
+
 module.exports = router
